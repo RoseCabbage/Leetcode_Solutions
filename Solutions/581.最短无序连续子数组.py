@@ -37,6 +37,24 @@
 # @lc code=start
 class Solution:
     def findUnsortedSubarray(self, nums: List[int]) -> int:
+        right = 0
+        maxnum = nums[right]
+        for i in range(len(nums)):
+            if nums[i] >= maxnum:
+                maxnum = nums[i]
+            else:
+                right = i
+        left = len(nums) - 1
+        minnum = nums[left]
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] <= minnum:
+                minnum = nums[i]
+            else:
+                left = i
+        if right > left:
+            return right - left + 1
+        else:
+            return 0
         
 # @lc code=end
 
