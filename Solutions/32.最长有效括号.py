@@ -34,5 +34,30 @@
 # @lc code=start
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
+        if not s:
+            return 0
+        dp = []
+        match = {']':'[', ')':'(', '}':'{'}
+        for idx in range(len(s)):
+            if idx == 0:
+                dp.append(0)
+            else:
+                if s[idx] in ['(', '[', '{']:
+                    dp.append(0)
+                else:
+                    temp = 0
+                    flag = 0
+                    if idx - dp[-1] - 1 >= 0 and s[idx - dp[-1] - 1] == match[s[idx]]:
+                        flag = 1
+                        temp = dp[-1] + 2 + dp[idx - dp[-1] - 2] if idx - dp[-1] - 2 >= 0 else dp[-1] + 2
+                    if idx - 1 >= 0 and match[s[idx]] == s[idx - 1]:
+                        flag = 1
+                        temp = max(dp[-2] + 2, temp) if len(dp) >= 2 else max(0, temp)
+                    if flag == 1:
+                        dp.append(temp)
+                    else:
+                        dp.append(0)
+        # print(dp)
+        return max(dp)
 # @lc code=end
 
