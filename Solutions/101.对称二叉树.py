@@ -54,7 +54,20 @@
 #         self.right = None
 
 class Solution:
+    def isMirror(self, tree1: TreeNode, tree2: TreeNode) -> bool:
+        if not tree1:
+            if tree2:
+                return False
+            else:
+                return True
+        if not tree2:
+            if tree1:
+                return False
+            else:
+                return True
+        return tree1.val == tree2.val and self.isMirror(tree1.left, tree2.right) and self.isMirror(tree1.right, tree2.left)
     def isSymmetric(self, root: TreeNode) -> bool:
+        return self.isMirror(root, root)
         
 # @lc code=end
 
